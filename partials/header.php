@@ -37,7 +37,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="../index.html">Start Bootstrap</a>
+        <a class="navbar-brand" href="http://localhost/blog/index.php">Start Bootstrap</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -53,24 +53,24 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto py-4 py-lg-0">
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html"
+              <a class="nav-link px-lg-3 py-3 py-lg-4" href="http://localhost/blog/index.php"
                 >Home</a
               >
             </li>
             <li class="nav-item">
               <a
                 class="nav-link px-lg-3 py-3 py-lg-4"
-                href="../posts/create.html"
+                href="http://localhost/blog/posts/create.php"
                 >create</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="login.html"
+              <a class="nav-link px-lg-3 py-3 py-lg-4" href="http://localhost/blog/auth/login.php"
                 >login</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="register.html"
+              <a class="nav-link px-lg-3 py-3 py-lg-4" href="http://localhost/blog/auth/register.php"
                 >register</a
               >
             </li>
@@ -87,7 +87,7 @@
     <!-- Page Header-->
     <header
       class="masthead"
-      style="background-image: url('../assets/img/home-bg.jpg')"
+      style="background-image: url('http://localhost/blog/assets/img/home-bg.jpg')"
     >
       <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
