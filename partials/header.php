@@ -57,6 +57,8 @@
                 >Home</a
               >
             </li>
+            <?php if(isset($_SESSION['username'])): ?>
+
             <li class="nav-item">
               <a
                 class="nav-link px-lg-3 py-3 py-lg-4"
@@ -64,6 +66,18 @@
                 >create</a
               >
             </li>
+            <li class="nav-item">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" style="color:aliceblue; margin-top:3px" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <?php echo $_SESSION['username']; ?>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="http://localhost/blog/auth/logout.php">Logout</a>
+              </div>
+            </div>
+            </li>
+            <?php else: ?>
             <li class="nav-item">
               <a class="nav-link px-lg-3 py-3 py-lg-4" href="http://localhost/blog/auth/login.php"
                 >login</a
@@ -74,9 +88,10 @@
                 >register</a
               >
             </li>
+            <?php endif; ?>
 
             <li class="nav-item">
-              <a class="nav-link px-lg-3 py-3 py-lg-4" href="../contact.html"
+              <a class="nav-link px-lg-3 py-3 py-lg-4" href="../blog/contact.php"
                 >Contact</a
               >
             </li>

@@ -1,7 +1,6 @@
 <?php
   require './partials/header.php';
 ?>
-<p><?php echo $_SESSION['username']; ?></p>
       <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
           <!-- Post preview-->
