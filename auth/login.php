@@ -1,6 +1,9 @@
 <?php include "../partials/header.php";?>
 <?php include "../config/config.php";?>
 <?php
+  if (isset($_SESSION['username'])) {
+    header("location: http://localhost/blog");
+  }
 if (isset($_POST['submit'])) {
   if ($_POST['email']=='' OR $_POST['password']=='') {
     echo "no field should be empty";
