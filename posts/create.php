@@ -14,14 +14,16 @@
             $body=$_POST['body'];
             $img = date("his").$_FILES['image']['name'];
             $user_id = $_SESSION['user_id'];
+            $user_name = $_SESSION['username'];
             $dir = '../images/' . basename($img);
-            $insert = $conn->prepare("insert into blog.posts (title,subtitle,body,image,user_id) values (:title,:subtitle,:body,:image,:user_id);");
+            $insert = $conn->prepare("insert into blog.posts (title,subtitle,body,image,user_id,username) values (:title,:subtitle,:body,:image,:user_id,:user_name);");
             $insert->execute([
                 ':title'=>$title,
                 ':subtitle'=>$subtitle,
                 ':body'=>$body,
                 ':image'=>$img,
                 ':user_id'=>$user_id,
+                ':user_name'=>$user_name,
             ]);
             if (move_uploaded_file($_FILES['image']['tmp_name'],$dir)) {
               header('location: http://localhost/blog/index.php');
