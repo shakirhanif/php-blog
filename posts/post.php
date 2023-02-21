@@ -36,8 +36,10 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <p><?php echo $row['body']; ?> </p>
+                        <?php if($_SESSION['user_id']==$row['user_id']): ?>
                         <a href="<?php echo "$URL/posts/delete.php?post_id=$id" ?>" class="btn btn-danger text-center float-end">DELETE</a>
-                        <a href="" class="btn btn-warning text-center">UPDATE</a>
+                        <a href="<?php echo "$URL/posts/update.php?post_id=$id" ?>" class="btn btn-warning text-center">UPDATE</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
