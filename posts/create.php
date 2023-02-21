@@ -1,23 +1,55 @@
 <?php include "../partials/header.php";?>
+<?php require "../config/config.php"; ?>
+<?php 
+    if (!isset($_SESSION['username'])) {
+      header("location: http://localhost/blog/auth/login.php");
+    }
+    if (isset($_POST['submit'])) {
+        if ($_POST['title']=='' OR $_POST['subtitle']=='' OR $_POST['body']=='') {
+            echo "one or more field is empty";
+        }else{
 
-            <form method="POST" action="">
+            $title=$_POST['title'];
+            $subtitle=$_POST['subtitle'];
+            $body=$_POST['body'];
+            $img = date("his").$_FILES['image']['name'];
+            $user_id = $_SESSION['user_id'];
+            $dir = '../images/' . basename($img);
+            $insert = $conn->prepare("insert into blog.posts (title,subtitle,body,image,user_id) values (:title,:subtitle,:body,:image,:user_id);");
+            $insert->execute([
+                ':title'=>$title,
+                ':subtitle'=>$subtitle,
+                ':body'=>$body,
+                ':image'=>$img,
+                ':user_id'=>$user_id,
+            ]);
+            if (move_uploaded_file($_FILES['image']['tmp_name'],$dir)) {
+              header('location: http://localhost/blog/index.php');
+            }
+
+        }
+    }
+
+?>
+
+            <form method="POST" action="http://localhost/blog/posts/create.php" enctype="multipart/form-data">
               <!-- Email input -->
               <div class="form-outline mb-4">
-                <input type="text" name="email" id="form2Example1" class="form-control" placeholder="title" />
+                <input type="text" name="title" id="form2Example1" class="form-control" placeholder="title" />
                
               </div>
 
               <div class="form-outline mb-4">
-                <input type="text" name="email" id="form2Example1" class="form-control" placeholder="subtitle" />
+                <input type="text" name="subtitle" id="form2Example1" class="form-control" placeholder="subtitle" />
             </div>
 
               <div class="form-outline mb-4">
-                <textarea type="text" name="email" id="form2Example1" class="form-control" placeholder="body" rows="8"></textarea>
+                <textarea type="text" name="body" id="form2Example1" class="form-control" placeholder="body" rows="8"></textarea>
             </div>
 
               
              <div class="form-outline mb-4">
-                <input type="file" name="email" id="form2Example1" class="form-control" placeholder="image" />
+                <input type="file" name="image" id="form2Example1" class="form-control" placeholder="image" />
             </div>
 
 
@@ -26,43 +58,5 @@
 
           
             </form>
-
-
-           
-        </div>
-    <!-- Footer-->
-        <footer class="border-top">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2022</div>
-                    </div>
-                </div>
-                <?php include "../partials/footer.php";?>
+<?php include "../partials/footer.php";?>
 

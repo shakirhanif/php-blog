@@ -16,6 +16,7 @@ if (isset($_POST['submit'])) {
     if($login->rowCount()>0){
       if(password_verify($pass,$row['password'])){
           $_SESSION['username'] = $row['username'];
+          $_SESSION['user_id'] = $row['id'];
           header('Location: http://localhost/blog/index.php');
         // echo 'logged in success';
       }else{
