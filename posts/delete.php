@@ -6,8 +6,12 @@
         $postOwner = $conn->prepare("select * from blog.posts where id=$did");
         $postOwner->execute();
         $postRow = $postOwner->fetch(PDO::FETCH_ASSOC);
+        $imageName = $postRow['image'];
         if ($postRow['user_id']==$_SESSION['user_id']) {
             $postDelete = $conn->prepare("delete from blog.posts where id=:id");
+            if (!$imageName=='') {
+                unlink("../images/$imageName");
+            }
             $postDelete->execute([':id'=>$did]);
             header('location: http://localhost/blog');
         }else{
