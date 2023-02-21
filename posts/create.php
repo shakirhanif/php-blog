@@ -12,7 +12,11 @@
             $title=$_POST['title'];
             $subtitle=$_POST['subtitle'];
             $body=$_POST['body'];
-            $img = date("his").$_FILES['image']['name'];
+            if (!$_FILES['image']['name']=='') {
+              $img = date("his").$_FILES['image']['name'];
+            }else{
+              $img = $_FILES['image']['name'];
+            }
             $user_id = $_SESSION['user_id'];
             $user_name = $_SESSION['username'];
             $dir = '../images/' . basename($img);
@@ -28,7 +32,7 @@
             if (move_uploaded_file($_FILES['image']['tmp_name'],$dir)) {
               header('location: http://localhost/blog/index.php');
             }
-
+            header('location: http://localhost/blog/index.php');
         }
     }
 
