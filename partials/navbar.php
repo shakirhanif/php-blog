@@ -1,6 +1,9 @@
 <?php
   session_start();
 ?>
+<?php
+  $URL="http://localhost/blog";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
