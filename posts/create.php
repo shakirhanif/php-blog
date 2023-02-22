@@ -4,6 +4,9 @@
     if (!isset($_SESSION['username'])) {
       header("location: http://localhost/blog/auth/login.php");
     }
+    $cats = $conn->prepare( "select *,DATE_FORMAT(createdAt,'%b %e-%Y %h:%i %p') as niceDate from blog.categories;" );
+    $cats->execute();
+    $catRows = $cats->fetchAll(PDO::FETCH_ASSOC);
     if (isset($_POST['submit'])) {
         if ($_POST['title']=='' OR $_POST['subtitle']=='' OR $_POST['body']=='') {
             echo "one or more field is empty";
@@ -12,6 +15,7 @@
             $title=$_POST['title'];
             $subtitle=$_POST['subtitle'];
             $body=$_POST['body'];
+            $category = $_POST['category_id'];
             if (!$_FILES['image']['name']=='') {
               $img = date("his").$_FILES['image']['name'];
             }else{
@@ -20,7 +24,7 @@
             $user_id = $_SESSION['user_id'];
             $user_name = $_SESSION['username'];
             $dir = '../images/' . basename($img);
-            $insert = $conn->prepare("insert into blog.posts (title,subtitle,body,image,user_id,username) values (:title,:subtitle,:body,:image,:user_id,:user_name);");
+            $insert = $conn->prepare("insert into blog.posts (title,subtitle,body,image,user_id,username,categoryId) values (:title,:subtitle,:body,:image,:user_id,:user_name,:categoryId);");
             $insert->execute([
                 ':title'=>$title,
                 ':subtitle'=>$subtitle,
@@ -28,6 +32,7 @@
                 ':image'=>$img,
                 ':user_id'=>$user_id,
                 ':user_name'=>$user_name,
+                ':categoryId'=>$category,
             ]);
             if (move_uploaded_file($_FILES['image']['tmp_name'],$dir)) {
               header('location: http://localhost/blog/index.php');
@@ -52,6 +57,70 @@
               <div class="form-outline mb-4">
                 <textarea type="text" name="body" id="form2Example1" class="form-control" placeholder="body" rows="8"></textarea>
             </div>
+            <!-- <style>
+              .dropdown{
+                margin-left: 50%;
+                position: relative;
+              }
+              .drpdwn{
+                background-color: gray;
+                position: absolute;
+                width: 150px;
+                display: none;
+              }
+              .dropdown p{
+                margin-left: 10px;
+              }
+              .show{
+                display: block;
+              }
+              .myButton{
+                background-color: gray;
+                width: 100px;
+                cursor: pointer;
+              }
+              .myMain{
+                display: flex;
+              }
+              .content{
+                cursor: pointer;
+              }
+              .myInput{
+                display: none;
+              }
+            </style> -->
+            <!-- <div class="form-outline mb-4 dropdown">
+                <div class="myMain">
+                  <div onclick="myFunc()" class="myButton">Category:</div>
+                  <div style="margin-left: 10px;" id="catName"></div>
+                </div>
+                <div class="drpdwn" id="myDropDown">
+                  <php foreach($catRows as $x): ?>
+                  <div class="content" onclick="funcTwo(event)"><php echo $x['name']; ?></div>
+                  <php endforeach; ?>
+                </div>
+            </div>
+            <input type="text" class="myInput" id="myInput" value="" name="category"> -->
+            <!-- <script>
+              function myFunc() {
+                document.getElementById('myDropDown').classList.add('show');
+              }
+              window.onclick=function(e){
+                if (!e.target.matches('.myButton')) {
+                  document.getElementById('myDropDown').classList.remove('show');
+                }
+              }
+              function funcTwo(e) {
+                document.getElementById('catName').innerHTML = e.target.innerText;
+                document.getElementById('myInput').value = e.target.innerText;
+              }
+            </script> -->
+            <select name="category_id">
+              <option selected>Select Category</option>
+              <?php foreach($catRows as $x): ?>
+              <option value="<?php echo $x['id'];?>"><?php echo $x['name']; ?></option>
+              <?php endforeach; ?>
+            </select>
 
               
              <div class="form-outline mb-4">
