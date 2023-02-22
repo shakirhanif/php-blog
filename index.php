@@ -7,7 +7,7 @@
           $posts = $conn->prepare( "select *,DATE_FORMAT(createdAt,'%b %e-%Y %h:%i %p') as niceDate from blog.posts;" );
           $posts->execute();
           $rows = $posts->fetchAll(PDO::FETCH_ASSOC);
-          $cats = $conn->prepare( "select *,DATE_FORMAT(createdAt,'%b %e-%Y %h:%i %p') as niceDate from blog.categories;" );
+          $cats = $conn->prepare( "select *,DATE_FORMAT(created_at,'%b %e-%Y %h:%i %p') as niceDate from blog.categories;" );
           $cats->execute();
           $catRows = $cats->fetchAll(PDO::FETCH_ASSOC);
 

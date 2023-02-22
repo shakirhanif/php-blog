@@ -75,7 +75,7 @@
                 <?php echo $_SESSION['username']; ?>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="<?php echo $URL.'/user/profile.php?user_id='.$_SESSION['user_id']; ?>">Profile</a>
                 <a class="dropdown-item" href="http://localhost/blog/auth/logout.php">Logout</a>
               </div>
             </div>
