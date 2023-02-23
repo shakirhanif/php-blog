@@ -35,6 +35,23 @@
     />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="http://localhost/blog/css/styles.css" rel="stylesheet" />
+    <script>
+        function hintFunc(e) {
+         var str = e.target.value;
+         if (str.length===0) {
+          document.getElementById('hint').innerHTML = "";
+         }else{
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState==4 && this.status == 200) {
+              document.getElementById('hint').innerHTML = this.responseText;
+            }
+          }
+          xhttp.open("GET","http://localhost/blog/hint.php?query="+str,true);
+          xhttp.send();
+         }
+        }
+      </script>
   </head>
   <body>
     <!-- Navigation-->
@@ -54,12 +71,14 @@
           <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-        <div class="ml-4 input-group ps-5">
-          <div id="navbar-search-autocomplete" class="w-100 mr-4">
-              <form method="POST" action="http://localhost/blog/search.php" class="mr-4">
-                  <input name="search" type="search" id="form1" class="form-control mt-3" placeholder="search" />
+        <div class="ml-4 input-group ps-5" >
+          <div id="navbar-search-autocomplete" class="w-100 mr-4" style="position: relative;">
+              <form method="POST" action="http://localhost/blog/search.php" class="mr-4" autocomplete="off">
+                  <input name="search" type="search" id="form1" class="form-control mt-3" placeholder="search" onkeyup="hintFunc(event)" />
              
               </form>
+              <!-- <p id="hint" class="w-100" style="position: absolute;top:20px;background-color: white;" >this suggestion <br> anoi</p> -->
+              <p id="hint" class="w-100" style="position: absolute;top:20px;background-color: white;" ></p>
 
           </div>
          
@@ -70,7 +89,7 @@
                 >Home</a
               >
             </li>
-            <?php if(isset($_SESSION['username'])): ?>
+<?php if(isset($_SESSION['username'])): ?>
 
             <li class="nav-item">
               <a
@@ -101,7 +120,7 @@
                 >register</a
               >
             </li>
-            <?php endif; ?>
+<?php endif; ?>
 
             <li class="nav-item">
               <a class="nav-link px-lg-3 py-3 py-lg-4" href="../blog/contact.php"
@@ -111,4 +130,5 @@
           </ul>
         </div>
       </div>
+     
     </nav>

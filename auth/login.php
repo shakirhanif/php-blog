@@ -10,14 +10,14 @@ if (isset($_POST['submit'])) {
   }else{
     $email = $_POST['email'];
     $pass = $_POST['password'];
-    $login = $conn->query("select * from blog.users where email = '$email'");
+    $login = $conn->prepare("select * from blog.users where email = '$email'");
     $login->execute();
     $row = $login->FETCH(PDO::FETCH_ASSOC);
     if($login->rowCount()>0){
       if(password_verify($pass,$row['password'])){
           $_SESSION['username'] = $row['username'];
           $_SESSION['user_id'] = $row['id'];
-          header('Location: http://localhost/blog/index.php');
+          header("location: http://localhost/blog");
         // echo 'logged in success';
       }else{
         echo 'wrong password';
